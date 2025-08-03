@@ -2,11 +2,13 @@ from jinja2 import Environment, FileSystemLoader
 from datetime import datetime
 from embedding.store import VectorStore
 from typing import Dict
+import os
+import pdfkit
 
 env = Environment(loader=FileSystemLoader("templates"))
 
+
 def get_policy_sections(query_tags: Dict[str, str]) -> Dict[str, str]:
-    """Fetches relevant policy sections using Chroma queries"""
     store = VectorStore()
     output = {}
 
@@ -17,39 +19,74 @@ def get_policy_sections(query_tags: Dict[str, str]) -> Dict[str, str]:
     }
 
     for key, query in queries.items():
+        print(f"\n🔍 Fetching: {key}")
         results = store.similarity_search(query)
-        if results["documents"][0]:
-            output[key] = results["documents"][0][0][:800]  # Take top result
+
+        if results["documents"] and results["documents"][0]:
+            best_match = results["documents"][0][0][:800]
+            print(f"✅ Match found: {best_match[:100]}...")
+            output[key] = best_match
         else:
-            output[key] = "Not found"
+            print(f"⚠️ No match for: {query}")
+            output[key] = f"(⚠️ No policy match found for {key})"
 
     return output
 
-def generate_offer_letter(employee: Dict) -> str:
-    """Fills the Jinja2 template with employee and policy data"""
-    template = env.get_template("offer_template.txt")
 
-    # Query Chroma for dynamic sections
+def add_newlines(text: str) -> str:
+    """Ensure bullet points and dashes are on new lines"""
+    return (
+        text.replace("●", "\n●")
+            .replace("•", "\n•")
+            .replace("- ", "\n- ")
+            .strip()
+    )
+
+
+def generate_offer_letter(employee: Dict) -> Dict[str, str]:
+    """Generates both .txt and .pdf offer letters. Returns paths."""
+
     policy_sections = get_policy_sections({
         "band": employee["Band"],
         "department": employee["Department"]
     })
 
-    filled = template.render(
-        current_date=datetime.today().strftime("%B %d, %Y"),
-        employee_name=employee["Employee Name"],
-        position="Software Engineer",  # Can be dynamic later
-        band=employee["Band"],
-        department=employee["Department"],
-        location=employee["Location"],
-        joining_date=employee["Joining Date"],
-        base_salary=employee["Base Salary (INR)"],
-        performance_bonus=employee["Performance Bonus (INR)"],
-        retention_bonus=employee["Retention Bonus (INR)"],
-        total_ctc=employee["Total CTC (INR)"],
-        leave_policy=policy_sections["leave_policy"],
-        wfo_policy=policy_sections["wfo_policy"],
-        travel_policy=policy_sections["travel_policy"]
-    )
+    # Add line breaks for clean formatting
+    policy_sections = {k: add_newlines(v) for k, v in policy_sections.items()}
 
-    return filled
+    data = {
+        "current_date": datetime.today().strftime("%B %d, %Y"),
+        "employee_name": employee["Employee Name"],
+        "position": "Software Engineer",
+        "band": employee["Band"],
+        "department": employee["Department"],
+        "location": employee["Location"],
+        "joining_date": employee["Joining Date"],
+        "base_salary": employee["Base Salary (INR)"],
+        "performance_bonus": employee["Performance Bonus (INR)"],
+        "retention_bonus": employee["Retention Bonus (INR)"],
+        "total_ctc": employee["Total CTC (INR)"],
+        "leave_policy": policy_sections["leave_policy"],
+        "wfo_policy": policy_sections["wfo_policy"],
+        "travel_policy": policy_sections["travel_policy"]
+    }
+
+    name_slug = employee["Employee Name"].replace(" ", "_")
+    output_dir = "../offers"
+    os.makedirs(output_dir, exist_ok=True)
+
+    # 🔹 Text File
+    text_template = env.get_template("offer_template.txt")
+    text_content = text_template.render(data)
+    txt_path = os.path.join(output_dir, f"{name_slug}_offer.txt")
+
+    with open(txt_path, "w", encoding="utf-8") as f:
+        f.write(text_content)
+
+    # 🔹 PDF File
+    pdf_template = env.get_template("offer_template.html")
+    html = pdf_template.render(data)
+    pdf_path = os.path.join(output_dir, f"{name_slug}_offer.pdf")
+    pdfkit.from_string(html, pdf_path)
+
+    return {"txt": txt_path, "pdf": pdf_path}

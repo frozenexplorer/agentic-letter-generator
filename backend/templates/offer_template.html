@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Offer Letter - {{ employee_name }}</title>
+  <style>
+    @font-face {
+      font-family: "Segoe UI Emoji";
+      src: local("Segoe UI Emoji");
+    }
+
+    body {
+      font-family: "Segoe UI Emoji", "Segoe UI", sans-serif;
+      background: #fff;
+      color: #222;
+      padding: 50px;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #004080;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .subtext {
+      text-align: center;
+      color: #888;
+      margin-bottom: 30px;
+    }
+
+    .section {
+      margin-top: 25px;
+    }
+
+    .section h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #004080;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    th {
+      background: #f2f2f2;
+      text-align: left;
+    }
+
+    .signature {
+      margin-top: 60px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .highlight {
+      background-color: #f9f9f9;
+      border-left: 4px solid #007bff;
+      padding: 10px 15px;
+      margin-top: 10px;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📄 Offer Letter – Company ABC</h1>
+  <div class="subtext">Date: {{ current_date }}</div>
+
+  <p><strong>Candidate Name:</strong> {{ employee_name }}<br>
+     <strong>Position:</strong> {{ position }}<br>
+     <strong>Band Level:</strong> {{ band }}<br>
+     <strong>Location:</strong> {{ location }}<br>
+     <strong>Joining Date:</strong> {{ joining_date }}</p>
+
+  <div class="section">
+    <h2>🎯 Appointment Details</h2>
+    <p>We are delighted to offer you the position of <strong>{{ position }}</strong> in the <strong>{{ department }}</strong> team at Company ABC. This is a full-time role based out of our <strong>{{ location }}</strong> office. Your employment will be governed by the terms outlined in this letter and the Employee Handbook.</p>
+  </div>
+
+  <div class="section">
+    <h2>💰 Compensation Structure</h2>
+    <table>
+      <tr><th>Component</th><th>Annual (INR)</th></tr>
+      <tr><td>Fixed Salary</td><td>₹{{ base_salary }}</td></tr>
+      <tr><td>Performance Bonus</td><td>₹{{ performance_bonus }}</td></tr>
+      <tr><td>Retention Bonus</td><td>₹{{ retention_bonus }}</td></tr>
+      <tr><td><strong>Total CTC</strong></td><td><strong>₹{{ total_ctc }}</strong></td></tr>
+    </table>
+    <p>Performance bonuses are disbursed quarterly, subject to performance evaluation.</p>
+  </div>
+
+  <div class="section">
+    <h2>🏖 Leave Entitlements</h2>
+    <div class="highlight"><p style="white-space: pre-wrap;">{{ leave_policy }}</p></div>
+  </div>
+
+  <div class="section">
+    <h2>🏢 Work From Office Policy</h2>
+    <div class="highlight"><p style="white-space: pre-wrap;">{{ wfo_policy }}</p></div>
+  </div>
+
+  <div class="section">
+    <h2>✈️ Travel Policy</h2>
+    <div class="highlight"><p style="white-space: pre-wrap;">{{ travel_policy }}</p></div>
+  </div>
+
+  <div class="section">
+    <h2>🔒 Confidentiality & IP Clause</h2>
+    <p>You are expected to maintain strict confidentiality of all proprietary data, financials, codebases, and client information. All work products created during employment shall remain the intellectual property of Company ABC.</p>
+    <p>A separate NDA and IP Agreement will be shared along with this letter.</p>
+  </div>
+
+  <div class="section">
+    <h2>🚨 Termination & Exit</h2>
+    <ul>
+      <li>Either party may terminate the employment with 60 days' notice</li>
+      <li>During probation (first 3 months), a 15-day notice period applies</li>
+      <li>All company property and access must be returned on final working day</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>✅ Next Steps</h2>
+    <p>Please confirm your acceptance of this offer by signing and returning this letter via DocuSign within 5 working days.</p>
+    <p>Upon acceptance, your onboarding buddy and People Ops partner will reach out with pre-joining formalities.</p>
+  </div>
+
+  <div class="signature">
+    <p>Warm regards,</p>
+    <p><strong>Aarti Nair</strong><br>
+    HR Business Partner<br>
+    📧 peopleops@companyabc.com<br>
+    🌐 www.companyabc.com</p>
+  </div>
+
+</body>
+</html>

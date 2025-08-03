@@ -4,7 +4,7 @@ from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunct
 
 class VectorStore:
     def __init__(self):
-        self.client = chromadb.Client()
+        self.client = chromadb.PersistentClient(path="./chroma_db")
         self.embedding_function = SentenceTransformerEmbeddingFunction(
             model_name="all-MiniLM-L6-v2"
         )
@@ -21,5 +21,5 @@ class VectorStore:
                 ids=[doc["chunk_id"]]
             )
 
-    def similarity_search(self, query, k=3):
+    def similarity_search(self, query, k=5):
         return self.collection.query(query_texts=[query], n_results=k)
