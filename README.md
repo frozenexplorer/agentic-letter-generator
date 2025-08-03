@@ -38,9 +38,12 @@ agentic-letter-generator/
 │   ├── embedding/              # Vector embedding handlers
 │   ├── templates/              # Jinja2 offer letter templates
 │   ├── parsing/                # Contains the parsing and chunker .py files
-│   ├── requirements.txt        # Python dependencies
-│   ├── data/                   # Employees data(CSV) and policies
-│   ├── offers/                 # Storage space for the pdfs and text
+│   └── requirements.txt        # Python dependencies
+│── data/                   
+│   │── employees/              # Data of the employees
+│   │── policies/               # Company policies
+│   └── sample/                 # Sample Policy
+│── offers/                     # Storage space for the pdfs and text
 └── frontend/
     ├── src/app                 # Next.js source code
     └── public/                 # Static assets
@@ -56,17 +59,43 @@ agentic-letter-generator/
    git clone https://github.com/frozenexplorer/agentic-letter-generator
    cd agentic-letter-generator/backend
    ```
+2. **Install wkhtmltopdf (Required for PDF generation)**
+   
+   **Windows:**
+   ```bash
+   # Download installer from: https://wkhtmltopdf.org/downloads.html
+   # Or using chocolatey:
+   choco install wkhtmltopdf
+   ```
+   
+   **macOS:**
+   ```bash
+   brew install wkhtmltopdf
+   ```
+   
+   **Ubuntu/Debian:**
+   ```bash
+   sudo apt-get update
+   sudo apt-get install wkhtmltopdf
+   ```
+   
+   **CentOS/RHEL:**
+   ```bash
+   sudo yum install wkhtmltopdf
+   # or for newer versions:
+   sudo dnf install wkhtmltopdf
+   ```
 
-2. **Install dependencies**
+3. **Install dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Prepare your data**
+4. **Prepare your data**
    - Place employee CSV file in `data/employees` directory
    - Add HR policy PDFs (Leave Policy, Travel Policy) to `data/policies` directory
 
-4. **Start the FastAPI server**
+5. **Start the FastAPI server**
    ```bash
    uvicorn main:app --reload
    ```
@@ -161,8 +190,3 @@ python-multipart>=0.0.6
 - Python 3.8+
 - Node.js 18+
 - wkhtmltopdf (for PDF generation)
-
-
-## 👨‍💻 Developer
-
-**Built with ❤️ by [@frozenexplorer](https://github.com/frozenexplorer)**
