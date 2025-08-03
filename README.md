@@ -49,7 +49,7 @@ agentic-letter-generator/
 
 ## 🚀 Quick Start
 
-### Backend Setup (Local)
+### Backend Setup (Local if required)
 
 1. **Clone the repository**
    ```bash
@@ -98,6 +98,21 @@ agentic-letter-generator/
    ```
    
    Server will be available at `http://localhost:8000`
+
+#### Backend Setup via Railway (Production)
+
+Backend is deployed on Railway at: `[https://random-production.up.railway.app](https://random-production.up.railway.app)`
+
+**Railway Configuration:**
+- Build Command: `pip install -r requirements.txt`
+- Start Command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+- Data files (CSV, PDFs) uploaded via Railway dashboard
+- Environment: Production-ready with auto-scaling
+
+**Frontend Environment Variable:**
+```bash
+NEXT_PUBLIC_API_URL=https://random-production.up.railway.app
+```
 
 ### Frontend (Vercel)
 
