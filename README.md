@@ -37,12 +37,16 @@ agentic-letter-generator/
 │   ├── generator/              # Letter generation logic
 │   ├── embedding/              # Vector embedding handlers
 │   ├── templates/              # Jinja2 offer letter templates
-│   ├── data/                   # Employee CSV & policy PDFs
+│   ├── parsing/                # Contains the parsing and chunker .py files
 │   └── requirements.txt        # Python dependencies
-└── frontend/
-    ├── src/                    # Next.js source code
-    ├── public/                 # Static assets
-    └── app/page.tsx           # Main chat interface
+│── frontend/
+│   ├── src/app                 # Next.js source code
+│   └── public/                 # Static assets
+│── └── data/                   
+│   │── employees/              # Data of the employees
+│   │── policies/               # Company policies
+│   └── sample/                 # Sample Policy
+└── └── offers/                 # Storage space for the pdfs and text    
 ```
 
 ## 🚀 Quick Start
@@ -51,7 +55,7 @@ agentic-letter-generator/
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/frozenexplorer/agentic-letter-generator
    cd agentic-letter-generator/backend
    ```
 
@@ -61,8 +65,8 @@ agentic-letter-generator/
    ```
 
 3. **Prepare your data**
-   - Place employee CSV file in `data/` directory
-   - Add HR policy PDFs (Leave Policy, Travel Policy) to `data/` directory
+   - Place employee CSV file in `data/employees` directory
+   - Add HR policy PDFs (Leave Policy, Travel Policy) to `data/policies` directory
 
 4. **Start the FastAPI server**
    ```bash
@@ -73,7 +77,7 @@ agentic-letter-generator/
 
 ### Frontend Setup (Vercel)
 
-1. **Just launch the website https://agentic-letter-generator-og1y2boia.vercel.app/ **
+1. Just launch the website https://agentic-letter-generator-og1y2boia.vercel.app/ 
 
 ## 💬 Usage Examples
 
