@@ -77,7 +77,7 @@ agentic-letter-generator/
 
 ### Frontend (Vercel)
 
-1. Just launch the website https://agentic-letter-generator-og1y2boia.vercel.app/ 
+1. Just launch the [website](https://agentic-letter-generator-rfdcjw6tz.vercel.app/) 
 
 ## 💬 Usage Examples
 
