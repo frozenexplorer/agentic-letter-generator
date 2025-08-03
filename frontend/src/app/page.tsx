@@ -35,7 +35,7 @@ export default function Home() {
     ]);
 
     try {
-      const res = await axios.post("https://agentic-letter-generator.onrender.com", {
+      const res = await axios.post("http://localhost:8000/generate-offer", {
         name: extractedName,
       });
 
@@ -46,8 +46,8 @@ export default function Home() {
           {
             sender: "bot",
             text: `✅ Offer letter generated for <strong>${extractedName}</strong><br><br>
-            📄 <a href="https://agentic-letter-generator.onrender.com/files/${links.pdf}" target="_blank">Download PDF</a><br>
-            📄 <a href="https://agentic-letter-generator.onrender.com/files/${links.txt}" target="_blank">View Text</a>`,
+            📄 <a href="http://localhost:8000/files/${links.pdf}" target="_blank">Download PDF</a><br>
+            📄 <a href="http://localhost:8000/files/${links.txt}" target="_blank">View Text</a>`,
           },
         ]);
       } else {
