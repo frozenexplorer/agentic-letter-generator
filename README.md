@@ -16,7 +16,7 @@ An advanced HR automation tool that generates personalized offer letters by inte
 ## 🏗️ Architecture
 
 ```
-Frontend (Next.js + Vercel) → Backend (FastAPI) → ChromaDB → PDF Generation
+Frontend (Next.js + Vercel) → Backend (FastAPI) → ChromaDB → PDF and Text Generation
                                      ↓
                             Semantic Policy Matching
 ```
@@ -75,7 +75,7 @@ agentic-letter-generator/
    
    Server will be available at `http://localhost:8000`
 
-### Frontend Setup (Vercel)
+### Frontend (Vercel)
 
 1. Just launch the website https://agentic-letter-generator-og1y2boia.vercel.app/ 
 
