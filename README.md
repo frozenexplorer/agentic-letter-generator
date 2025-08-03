@@ -77,7 +77,7 @@ agentic-letter-generator/
 
 ### Frontend (Vercel)
 
-1. Just launch the [website](https://agentic-letter-generator-rfdcjw6tz.vercel.app/) 
+1. Just launch the [website](https://agentic-letter-generator.vercel.app/) 
 
 ## 💬 Usage Examples
 
@@ -127,10 +127,12 @@ User Input → Embedding → Semantic Search → Data Retrieval → Template Ren
 ### Local Development
 ```bash
 # Backend (Terminal 1)
-cd backend && uvicorn main:app --reload
+cd backend
+uvicorn main:app --reload
 
 # Frontend (Terminal 2)  
-cd frontend && npm run dev
+cd frontend
+npm run dev
 ```
 
 ### Adding New Templates
@@ -139,7 +141,7 @@ cd frontend && npm run dev
 3. Test with sample candidate data
 
 ### Extending Policy Support
-1. Add new policy PDFs to `data/` directory
+1. Add new policy PDFs to `data/policies` directory
 2. Update embedding pipeline to include new documents
 3. Modify template to incorporate new policy sections
 
@@ -162,13 +164,6 @@ python-multipart>=0.0.6
 - Node.js 18+
 - wkhtmltopdf (for PDF generation)
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 👨‍💻 Developer
 
