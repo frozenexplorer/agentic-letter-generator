@@ -38,12 +38,9 @@ agentic-letter-generator/
 │   ├── embedding/              # Vector embedding handlers
 │   ├── templates/              # Jinja2 offer letter templates
 │   ├── parsing/                # Contains the parsing and chunker .py files
-│   └── requirements.txt        # Python dependencies
-│── data/                   
-│   │── employees/              # Data of the employees
-│   │── policies/               # Company policies
-│   └── sample/                 # Sample Policy
-│── offers/                     # Storage space for the pdfs and text
+│   ├── requirements.txt        # Python dependencies
+│   ├── data/                   # Employees data(CSV) and policies
+│   ├── offers/                 # Storage space for the pdfs and text
 └── frontend/
     ├── src/app                 # Next.js source code
     └── public/                 # Static assets
