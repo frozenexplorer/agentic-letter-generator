@@ -39,14 +39,15 @@ agentic-letter-generator/
 │   ├── templates/              # Jinja2 offer letter templates
 │   ├── parsing/                # Contains the parsing and chunker .py files
 │   └── requirements.txt        # Python dependencies
-│── frontend/
-│   ├── src/app                 # Next.js source code
-│   └── public/                 # Static assets
 │── data/                   
 │   │── employees/              # Data of the employees
 │   │── policies/               # Company policies
 │   └── sample/                 # Sample Policy
-└── offers/                     # Storage space for the pdfs and text    
+│── offers/                     # Storage space for the pdfs and text
+└── frontend/
+    ├── src/app                 # Next.js source code
+    └── public/                 # Static assets
+
 ```
 
 ## 🚀 Quick Start
