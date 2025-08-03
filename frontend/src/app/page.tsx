@@ -141,7 +141,7 @@ export default function Home() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="e.g., Generate offer for Jane Doe"
+            placeholder="e.g., Generate offer for Martha Bennett"
             style={{
               flex: 1,
               padding: "0.75rem",
