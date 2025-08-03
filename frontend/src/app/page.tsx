@@ -2,7 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 const BACKEND_URI =
-  process.env.NEXT_PUBLIC_BACKEND_URI || "random-production.up.railway.app";
+  process.env.NEXT_PUBLIC_BACKEND_URI || "https://random-production.up.railway.app";
 export default function Home() {
   const [chat, setChat] = useState<{ sender: string; text: string }[]>([]);
   const [input, setInput] = useState("");
