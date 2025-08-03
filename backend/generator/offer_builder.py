@@ -2,10 +2,18 @@ from jinja2 import Environment, FileSystemLoader
 from datetime import datetime
 from embedding.store import VectorStore
 from typing import Dict
-import os
+import os, sys
 import pdfkit
+import shutil
+
+if sys.platform.startswith("win"):
+    wkhtmltopdf_path = r"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe"
+else:
+    wkhtmltopdf_path = shutil.which("wkhtmltopdf")
+
 
 env = Environment(loader=FileSystemLoader("templates"))
+print("Path of wkhtmltopdf", wkhtmltopdf_path)
 
 
 def get_policy_sections(query_tags: Dict[str, str]) -> Dict[str, str]:
@@ -15,7 +23,7 @@ def get_policy_sections(query_tags: Dict[str, str]) -> Dict[str, str]:
     queries = {
         "leave_policy": f"Leave entitlements for Band {query_tags['band']}",
         "wfo_policy": f"Work from office policy for {query_tags['department']} team",
-        "travel_policy": f"Travel policy for Band {query_tags['band']}"
+        "travel_policy": f"Travel policy for Band {query_tags['band']}",
     }
 
     for key, query in queries.items():
@@ -35,21 +43,15 @@ def get_policy_sections(query_tags: Dict[str, str]) -> Dict[str, str]:
 
 def add_newlines(text: str) -> str:
     """Ensure bullet points and dashes are on new lines"""
-    return (
-        text.replace("●", "\n●")
-            .replace("•", "\n•")
-            .replace("- ", "\n- ")
-            .strip()
-    )
+    return text.replace("●", "\n●").replace("•", "\n•").replace("- ", "\n- ").strip()
 
 
 def generate_offer_letter(employee: Dict) -> Dict[str, str]:
     """Generates both .txt and .pdf offer letters. Returns paths."""
 
-    policy_sections = get_policy_sections({
-        "band": employee["Band"],
-        "department": employee["Department"]
-    })
+    policy_sections = get_policy_sections(
+        {"band": employee["Band"], "department": employee["Department"]}
+    )
 
     # Add line breaks for clean formatting
     policy_sections = {k: add_newlines(v) for k, v in policy_sections.items()}
@@ -68,11 +70,11 @@ def generate_offer_letter(employee: Dict) -> Dict[str, str]:
         "total_ctc": employee["Total CTC (INR)"],
         "leave_policy": policy_sections["leave_policy"],
         "wfo_policy": policy_sections["wfo_policy"],
-        "travel_policy": policy_sections["travel_policy"]
+        "travel_policy": policy_sections["travel_policy"],
     }
 
     name_slug = employee["Employee Name"].replace(" ", "_")
-    output_dir = "../offers"
+    output_dir = "./offers"
     os.makedirs(output_dir, exist_ok=True)
 
     # 🔹 Text File
@@ -82,11 +84,12 @@ def generate_offer_letter(employee: Dict) -> Dict[str, str]:
 
     with open(txt_path, "w", encoding="utf-8") as f:
         f.write(text_content)
+    config = pdfkit.configuration(wkhtmltopdf=wkhtmltopdf_path)
 
     # 🔹 PDF File
     pdf_template = env.get_template("offer_template.html")
     html = pdf_template.render(data)
     pdf_path = os.path.join(output_dir, f"{name_slug}_offer.pdf")
-    pdfkit.from_string(html, pdf_path)
+    pdfkit.from_string(html, pdf_path, configuration=config)
 
     return {"txt": txt_path, "pdf": pdf_path}

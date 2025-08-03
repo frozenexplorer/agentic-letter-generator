@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
-
+const BACKEND_URI = process.env.NEXT_PUBLIC_BACKEND_URI;
 export default function Home() {
   const [chat, setChat] = useState<{ sender: string; text: string }[]>([]);
   const [input, setInput] = useState("");
@@ -24,18 +24,24 @@ export default function Home() {
     if (!extractedName) {
       setChat((prev) => [
         ...prev,
-        { sender: "bot", text: "❌ Please say something like: 'Generate offer for John Doe'" },
+        {
+          sender: "bot",
+          text: "❌ Please say something like: 'Generate offer for John Doe'",
+        },
       ]);
       return;
     }
 
     setChat((prev) => [
       ...prev,
-      { sender: "bot", text: `🔄 Generating offer letter for ${extractedName}...` },
+      {
+        sender: "bot",
+        text: `🔄 Generating offer letter for ${extractedName}...`,
+      },
     ]);
 
     try {
-      const res = await axios.post("http://localhost:8000/generate-offer", {
+      const res = await axios.post(`${BACKEND_URI}/generate-offer`, {
         name: extractedName,
       });
 
@@ -46,17 +52,21 @@ export default function Home() {
           {
             sender: "bot",
             text: `✅ Offer letter generated for <strong>${extractedName}</strong><br><br>
-            📄 <a href="http://localhost:8000/files/${links.pdf}" target="_blank">Download PDF</a><br>
-            📄 <a href="http://localhost:8000/files/${links.txt}" target="_blank">View Text</a>`,
+            📄 <a href="${BACKEND_URI}/files/${links.pdf}" download=${links.pdf}  target="_blank">Download PDF</a><br>
+            📄 <a href="${BACKEND_URI}/files/${links.txt}" download=${links.pdf}  target="_blank">View Text</a>`,
           },
         ]);
       } else {
         setChat((prev) => [
           ...prev,
-          { sender: "bot", text: `❌ No employee found named "${extractedName}".` },
+          {
+            sender: "bot",
+            text: `❌ No employee found named "${extractedName}".`,
+          },
         ]);
       }
     } catch (error) {
+      console.log("Error : ", error);
       setChat((prev) => [
         ...prev,
         { sender: "bot", text: `❌ Error generating the offer letter.` },
@@ -85,7 +95,13 @@ export default function Home() {
           boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
         }}
       >
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "1rem" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "1rem",
+          }}
+        >
           <h2 style={{ fontSize: "1.5rem" }}>🤖 HR Chat Assistant</h2>
           <button
             onClick={() => setDarkMode(!darkMode)}
@@ -124,13 +140,25 @@ export default function Home() {
               <div
                 style={{
                   display: "inline-block",
-                  background: msg.sender === "user" ? "#3b82f6" : darkMode ? "#334155" : "#e2e8f0",
-                  color: msg.sender === "user" ? "#fff" : darkMode ? "#f8fafc" : "#000",
+                  background:
+                    msg.sender === "user"
+                      ? "#3b82f6"
+                      : darkMode
+                      ? "#334155"
+                      : "#e2e8f0",
+                  color:
+                    msg.sender === "user"
+                      ? "#fff"
+                      : darkMode
+                      ? "#f8fafc"
+                      : "#000",
                   padding: "0.75rem 1rem",
                   borderRadius: "10px",
                   maxWidth: "80%",
                 }}
-                dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, "<br>") }}
+                dangerouslySetInnerHTML={{
+                  __html: msg.text.replace(/\n/g, "<br>"),
+                }}
               />
             </div>
           ))}
