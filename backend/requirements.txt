@@ -1,12 +1,14 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+
 # ⚡ FastAPI Server
 fastapi
 uvicorn[standard]
 
 # 🧠 Embedding + Vector Store
+numpy<2
 sentence-transformers
 chromadb
-torch
-numpy
+torch==2.2.0+cpu ; sys_platform == 'linux'
 
 # 📄 PDF/Text Generation
 jinja2

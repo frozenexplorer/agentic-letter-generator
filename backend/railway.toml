@@ -1,0 +1,11 @@
+[build]
+builder = "NIXPACKS"
+
+[build.nixpacksPlan.phases.setup]
+aptPkgs = ["wkhtmltopdf", "libxrender1", "libfontconfig1"]
+
+[build.nixpacksPlan.phases.build]
+cmds = ["echo 'Running build phase'"]
+
+[deploy]
+startCommand = "uvicorn main:app --host 0.0.0.0 --port 8000"
