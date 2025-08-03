@@ -101,7 +101,7 @@ agentic-letter-generator/
 
 #### Backend Setup via Railway (Production)
 
-Backend is deployed on Railway at: `[https://random-production.up.railway.app](https://random-production.up.railway.app)`
+Backend is deployed on Railway at: [https://random-production.up.railway.app](https://random-production.up.railway.app)
 
 **Railway Configuration:**
 - Build Command: `pip install -r requirements.txt`
