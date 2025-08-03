@@ -42,11 +42,11 @@ agentic-letter-generator/
 │── frontend/
 │   ├── src/app                 # Next.js source code
 │   └── public/                 # Static assets
-│── └── data/                   
+│── data/                   
 │   │── employees/              # Data of the employees
 │   │── policies/               # Company policies
 │   └── sample/                 # Sample Policy
-└── └── offers/                 # Storage space for the pdfs and text    
+└── offers/                     # Storage space for the pdfs and text    
 ```
 
 ## 🚀 Quick Start
